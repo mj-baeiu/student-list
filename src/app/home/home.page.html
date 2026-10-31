@@ -1,0 +1,91 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Student List
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+  <h1>{{title}}</h1>
+  <p>Total Students: {{students.length}}</p>
+
+  <ion-button (click) = 'toggleDetails()'>
+    {{showDetails ? 'Hide Details' : 'Show Details'}}
+  </ion-button>
+
+  @if (showDetails) {
+    <ion-list>
+      @for (student of students; track student.id) {
+        <ion-card>
+          <ion-card-header>
+            <ion-avatar class="student-avatar">
+              <ion-img [src]="student.avatarImageSrc"
+                      [alt]="student.name">
+              </ion-img>
+            </ion-avatar>
+
+            <ion-card-title>
+              {{student.name}}
+            </ion-card-title>
+
+            <ion-card-subtitle>
+              Student ID: {{student.id}}
+            </ion-card-subtitle>
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-badge [color] = "student.gender === 'Male' ? 'primary' : 'danger'">
+              {{student.gender}}
+            </ion-badge>
+            <ion-button
+              expand="block"
+              class="profile-button"
+              [class.profile-open]="selectedStudentId === student.id"
+              [fill]="selectedStudentId === student.id ? 'solid' : 'outline'"
+              color="primary"
+              (click)="toggleProfile(student.id)">
+              <span class="profile-button-text">
+                {{ selectedStudentId === student.id ? 'Hide Profile' : 'View Profile' }}
+              </span>
+            </ion-button>
+            @if (selectedStudentId === student.id) {
+              <div class="profile-details">
+                <h3>Student Information</h3>
+                <p><strong>Course:</strong> {{student.course}}</p>
+                <p><strong>Year Level:</strong> {{student.year}}</p>
+                <p><strong>Section:</strong> {{student.section}}</p>
+                <p><strong>Age:</strong> {{student.age}}</p>
+                <p><strong>Address:</strong> {{student.address}}</p>
+                <p><strong>Email:</strong> {{student.email}}</p>
+                <div class="status-row">
+                  <strong>Status:</strong>
+                  <ion-badge
+                    [color]="student.status === 'Active' ? 'success' : 'medium'">
+                    {{student.status}}
+                  </ion-badge>
+                </div>
+              </div>
+            }
+          </ion-card-content>
+        </ion-card>
+      }
+    </ion-list>
+  } @else {
+    <ion-card>
+      <ion-card-content>
+        <h2>Student details are hidden.</h2>
+        <p>Click the button above to show the students.</p>
+      </ion-card-content>
+    </ion-card>
+  }
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <p>© 2026 Student List System</p>
+    <p>BS Information Technology</p>
+  </ion-toolbar>
+</ion-footer>

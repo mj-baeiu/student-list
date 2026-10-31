@@ -1,0 +1,7 @@
+{
+  "name": "studentList",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
